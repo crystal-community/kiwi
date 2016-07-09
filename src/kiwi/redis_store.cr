@@ -1,3 +1,4 @@
+require "./store"
 require "redis"
 
 module Kiwi

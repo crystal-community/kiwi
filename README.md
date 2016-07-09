@@ -1,40 +1,64 @@
-# kiwi
+# Kiwi
 
-TODO: Write a description here
+A unified interface for Key/Value storages. Implemented in Crystal.
 
 ## Installation
-
 
 Add this to your application's `shard.yml`:
 
 ```yaml
 dependencies:
   kiwi:
-    github: greyblake/kiwi
+    github: greyblake/crystal-kiwi
 ```
-
 
 ## Usage
 
 
+### MemoryStore
+
 ```crystal
-require "kiwi"
+require "kiwi/memory_store"
+
+store = Kiwi::MemoryStore.new
+
+store.set("key", "value")
+store.get("key")  # => "value"
+store.delete("key")
+store.clear
 ```
 
+### FileStore
 
-TODO: Write usage instructions here
+```crystal
+require "kiwi/file_store"
 
-## Development
+store = Kiwi::FileStore(dir: "/tmp/kiwi")
+```
 
-TODO: Write development instructions here
+### RedisStore
 
-## Contributing
+RedisStore requires you to have [https://github.com/stefanwille/crystal-redis](redis shard).
 
-1. Fork it ( https://github.com/greyblake/kiwi/fork )
-2. Create your feature branch (git checkout -b my-new-feature)
-3. Commit your changes (git commit -am 'Add some feature')
-4. Push to the branch (git push origin my-new-feature)
-5. Create a new Pull Request
+```crystal
+require "redis"
+require "kiwi/redis_store"
+
+store = Kiwi::RedisStore(redis: Redis.new)
+```
+
+## Performance porn
+
+Results can vary on different systems depending on hardware(CPU, RAM, HDD/SSD) and software(OS, file system, etc).
+Ops/sec.
+
+```
+|                 | set     | get     | delete   |
+| --------------- | ------- | ------- | -------- |
+| **MemoryStore** | 4740000 | 8607000 | 35602000 |
+| **FileStore**   |   19000 |   29000 |     7000 |
+| **RedisStore**  |   44000 |   45000 |    23000 |
+```
 
 ## Contributors
 

@@ -1,3 +1,5 @@
+require "./store"
+
 module Kiwi
   class MemoryStore < Store
     def initialize
@@ -7,10 +9,6 @@ module Kiwi
     def get(key)
       @mem[key]?
     end
-
-    #def has?(key)
-    #  !!(@mem[key]?)
-    #end
 
     def set(key, val)
       @mem[key] = val

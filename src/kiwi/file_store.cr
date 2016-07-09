@@ -1,3 +1,4 @@
+require "./store"
 require "digest/sha1"
 require "file_utils"
 
