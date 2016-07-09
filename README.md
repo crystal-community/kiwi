@@ -46,6 +46,17 @@ require "kiwi/redis_store"
 store = Kiwi::RedisStore(redis: Redis.new)
 ```
 
+### MemcachedStore
+
+MemcachedStore requires you to have [memcached shard](https://github.com/comandeo/crystal-memcached)
+
+```crystal
+require "memcached"
+require "kiwi/memcached_store"
+
+store = Kiwi::MemcachedStore(memcached: Memcached::Client.new)
+```
+
 ## Performance porn
 
 The following table shows operations per second for every particular store.
