@@ -1,6 +1,6 @@
 require "./src/kiwi"
 
-N = 100_000
+N = 200_000
 
 def benchmark(name)
   start_time = Time.now
@@ -15,23 +15,31 @@ end
 def gen_data
   data = Hash(String, String).new
   N.times do |i|
-    key = "key-#{i.to_s}"
-    value = "value-#{i.to_s}"
+    # from 5 up to ~100 chars
+    key = "0123456789" * rand(10) + "-key#{i}"
+
+    # up to ~ 1Kb
+    value = "0123456789" * rand(100)
+
     data[key] = value
   end
   data
 end
 
+puts "Initializing stores..."
 stores = Array(Kiwi::Store).new
 stores << Kiwi::MemoryStore.new
-stores << Kiwi::FileStore.new(dir: "/tmp/kiwi_benchmark_file")
-stores << Kiwi::RedisStore.new(redis: Redis.new)
 stores << Kiwi::LevelDBStore.new(LevelDB::DB.new("/tmp/kiwi_benchmark_leveldb"))
-
+stores << Kiwi::RedisStore.new(Redis.new)
+stores << Kiwi::FileStore.new("/tmp/kiwi_benchmark_file")
+# stores << Kiwi::MemcachedStore.new(Memcached::Client.new)
 
 def measure(stores)
+  puts "Genrating data..."
   data = gen_data
   result = Hash(String, Hash(String, Int32)).new
+
+  puts "Starting...\n\n"
 
   stores.each do |store|
     puts store.class
