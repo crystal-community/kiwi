@@ -37,7 +37,7 @@ store = Kiwi::FileStore(dir: "/tmp/kiwi")
 
 ### RedisStore
 
-RedisStore requires you to have [https://github.com/stefanwille/crystal-redis](redis shard).
+RedisStore requires you to have [redis shard](https://github.com/stefanwille/crystal-redis)
 
 ```crystal
 require "redis"
