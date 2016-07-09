@@ -1,6 +1,6 @@
 # Kiwi
 
-A unified interface for Key/Value storages. Implemented in Crystal.
+A unified interface for key/value stores. Implemented in Crystal.
 
 ## Installation
 
@@ -13,7 +13,6 @@ dependencies:
 ```
 
 ## Usage
-
 
 ### MemoryStore
 
@@ -52,12 +51,22 @@ store = Kiwi::RedisStore(redis: Redis.new)
 Results can vary on different systems depending on hardware(CPU, RAM, HDD/SSD) and software(OS, file system, etc).
 Ops/sec.
 
-```
 |                 | set     | get     | delete   |
 | --------------- | ------- | ------- | -------- |
 | **MemoryStore** | 4740000 | 8607000 | 35602000 |
 | **FileStore**   |   19000 |   29000 |     7000 |
 | **RedisStore**  |   44000 |   45000 |    23000 |
+
+## Running benchmark
+
+```
+make benchmark
+```
+
+## Running tests
+
+```
+make test
 ```
 
 ## Contributors
