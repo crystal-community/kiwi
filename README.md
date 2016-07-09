@@ -58,6 +58,17 @@ leveldb = LevelDB::DB.new("./db")
 store = Kiwi::LevelDBStore(leveldb)
 ```
 
+### MemcachedStore
+
+MemcachedStore requires you to have [memcached shard](https://github.com/comandeo/crystal-memcached)
+
+```crystal
+require "memcached"
+require "kiwi/memcached_store"
+
+store = Kiwi::MemcachedStore(memcached: Memcached::Client.new)
+```
+
 ## Performance porn
 
 The following table shows operations per second for every particular store.
