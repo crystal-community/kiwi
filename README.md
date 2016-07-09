@@ -48,14 +48,15 @@ store = Kiwi::RedisStore(redis: Redis.new)
 
 ## Performance porn
 
-Results can vary on different systems depending on hardware(CPU, RAM, HDD/SSD) and software(OS, file system, etc).
-Ops/sec.
+The following table shows operations per second for every particular store.
 
 |                 | set     | get     | delete   |
-| --------------- | ------- | ------- | -------- |
+| --------------- | -------:| -------:| --------:|
 | **MemoryStore** | 4740000 | 8607000 | 35602000 |
 | **FileStore**   |   19000 |   29000 |     7000 |
 | **RedisStore**  |   44000 |   45000 |    23000 |
+
+Results can vary on different systems depending on hardware(CPU, RAM, HDD/SSD) and software(OS, file system, etc).
 
 ## Running benchmark
 
