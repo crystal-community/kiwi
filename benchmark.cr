@@ -24,8 +24,9 @@ end
 
 stores = Array(Kiwi::Store).new
 stores << Kiwi::MemoryStore.new
-stores << Kiwi::FileStore.new(dir: "/tmp/kiwi_test")
+stores << Kiwi::FileStore.new(dir: "/tmp/kiwi_benchmark_file")
 stores << Kiwi::RedisStore.new(redis: Redis.new)
+stores << Kiwi::LevelDBStore.new(LevelDB::DB.new("/tmp/kiwi_benchmark_leveldb"))
 
 
 def measure(stores)

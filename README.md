@@ -37,13 +37,25 @@ store = Kiwi::FileStore(dir: "/tmp/kiwi")
 
 ### RedisStore
 
-RedisStore requires you to have [redis shard](https://github.com/stefanwille/crystal-redis)
+RedisStore requires you to have [redis shard](https://github.com/stefanwille/crystal-redis).
 
 ```crystal
 require "redis"
 require "kiwi/redis_store"
 
 store = Kiwi::RedisStore(redis: Redis.new)
+```
+
+### LevelDBStore
+
+RedisStore requires you to have [leveldb shard](https://github.com/greyblake/crystal-leveldb).
+
+```crystal
+require "redis"
+require "kiwi/leveldb_store"
+
+leveldb = LevelDB::DB.new("./db")
+store = Kiwi::LevelDBStore(leveldb)
 ```
 
 ## Performance porn

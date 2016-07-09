@@ -8,5 +8,8 @@ license: MIT
 
 development_dependencies:
   redis:
-    github: stefanwille/crystal-redis
-    version: ~> 1.6.5
+    github: "stefanwille/crystal-redis"
+    version: "~> 1.6.5"
+  leveldb:
+    github: "greyblake/crystal-leveldb"
+    version: "~> 0.1.0"
