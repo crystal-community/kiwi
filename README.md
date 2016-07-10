@@ -60,7 +60,7 @@ store = Kiwi::LevelDBStore(leveldb)
 
 ### MemcachedStore
 
-MemcachedStore requires you to have [memcached shard](https://github.com/comandeo/crystal-memcached)
+MemcachedStore requires you to have [memcached shard](https://github.com/comandeo/crystal-memcached).
 
 ```crystal
 require "memcached"
@@ -73,17 +73,18 @@ store = Kiwi::MemcachedStore.new(Memcached::Client.new)
 
 The following table shows **operations per second** for every particular store.
 
-|                  | set     | get     | delete   |
-| ---------------- | -------:| -------:| --------:|
-| **MemoryStore**  | 1707000 | 4715000 |  6778000 |
-| **LevelDBStore** |   67000 |  155000 |    66000 |
-| **RedisStore**   |   41000 |   41000 |    21000 |
-| **FileStore**    |   6000  |   17000 |    13000 |
+|                    | set     | get     | get(empty) | delete   |
+| ------------------ | ------- | ------- | ---------- | -------- |
+| **MemoryStore**    | 3056000 | 4166000 |    4074000 | 10473000 |
+| **LevelDBStore**   |  120000 |  193000 |     253000 |    37000 |
+| **RedisStore**     |   41000 |   42000 |      42000 |    21000 |
+| **MemcachedStore** |   38000 |   41000 |      40000 |    21000 |
+| **FileStore**      |   27000 |   66000 |      73000 |     8000 |
 
 Data information:
 * Key size: 5-100 bytes.
 * Value size: 10-1000 bytes.
-* Number of items: 200,000
+* Number of items: 100,000
 
 
 Environment information:
@@ -106,6 +107,14 @@ make benchmark
 make test
 ```
 
+# Roadmap
+
+* Support `#[]=`, `#[]` methods
+* Write `Why?` section
+  * Cache use case
+  * Easy switch to a different store.
+
 ## Contributors
 
-- [greyblake](https://github.com/greyblake) Sergey Potapov - creator, maintainer
+- [greyblake](https://github.com/greyblake) Sergey Potapov - creator, maintainer.
+- [mauricioabreu](https://github.com/mauricioabreu) Mauricio de Abreu Antunes - thanks for MemcachedStore.
