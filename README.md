@@ -74,7 +74,7 @@ store = Kiwi::MemcachedStore.new(Memcached::Client.new)
 The following table shows **operations per second** for every particular store.
 
 |                    | set     | get     | get(empty) | delete   |
-| ------------------ | ------- | ------- | ---------- | -------- |
+| ------------------:| -------:| -------:| ----------:| --------:|
 | **MemoryStore**    | 3056000 | 4166000 |    4074000 | 10473000 |
 | **LevelDBStore**   |  120000 |  193000 |     253000 |    37000 |
 | **RedisStore**     |   41000 |   42000 |      42000 |    21000 |
