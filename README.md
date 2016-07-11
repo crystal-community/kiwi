@@ -1,6 +1,6 @@
 # Kiwi
 
-A unified interface for key/value stores. Implemented in Crystal.
+A simple unified Crystal interface for key-value stores.
 
 ## Installation
 
@@ -14,6 +14,14 @@ dependencies:
 
 ## Usage
 
+All the stores have the same simple interface defined by [Kiwi::Store](https://github.com/greyblake/crystal-kiwi/blob/master/src/kiwi/store.cr) class:
+* `set(key : String, value : String) : String`
+* `get(key : String) : String|Nil`
+* `delete(key : String) : String|Nil`
+* `clear`
+* `[]=(key : String, value) : String` - alias for `set`
+* `[](key : String) : String` - alias for `get`
+
 ### MemoryStore
 
 ```crystal
@@ -25,6 +33,10 @@ store.set("key", "value")
 store.get("key")  # => "value"
 store.delete("key")
 store.clear
+
+# Or your can use Hash-like methods:
+store["key"] = "new value"
+store["key"]  # => "new "value"
 ```
 
 ### FileStore
