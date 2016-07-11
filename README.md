@@ -1,4 +1,4 @@
-# Kiwi
+# Kiwi <img src="http://publicdomainvectors.org/photos/1301230997.png" alt="Crystal Kiwi - interface of key-value storages" width="64">
 
 A simple unified Crystal interface for key-value stores.
 
@@ -25,7 +25,8 @@ dependencies:
 
 ## Usage
 
-All the stores have the same simple interface defined by [Kiwi::Store](https://github.com/greyblake/crystal-kiwi/blob/master/src/kiwi/store.cr) class:
+All the stores have the same simple interface defined by
+[Kiwi::Store](https://github.com/greyblake/crystal-kiwi/blob/master/src/kiwi/store.cr):
 * `set(key : String, value : String) : String`
 * `get(key : String) : String|Nil`
 * `delete(key : String) : String|Nil`
