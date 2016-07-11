@@ -5,7 +5,8 @@ require "file_utils"
 module Kiwi
   class FileStore < Store
     def initialize(@dir : String)
-      Dir.mkdir_p(@dir)
+      @dir_created = false
+      create_dir
     end
 
     def get(key)
@@ -14,12 +15,16 @@ module Kiwi
     end
 
     def set(key, val)
+      create_dir unless dir_created?
+
       file = file_for_key(key)
       File.write(file, val)
       val
     end
 
     def delete(key)
+      create_dir unless dir_created?
+
       file = file_for_key(key)
       if File.exists?(file)
         value = File.read(file)
@@ -31,13 +36,27 @@ module Kiwi
     end
 
     def clear
-      FileUtils.rm_r(@dir)
+      remove_dir
       self
     end
 
     private def file_for_key(key)
       hex = Digest::SHA1.hexdigest(key)
       File.join(@dir, hex)
+    end
+
+    private def create_dir
+      Dir.mkdir_p(@dir)
+      @dir_created = true
+    end
+
+    private def remove_dir
+      FileUtils.rm_r(@dir)
+      @dir_created = false
+    end
+
+    private def dir_created?
+      @dir_created
     end
   end
 end
