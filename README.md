@@ -48,10 +48,10 @@ store = Kiwi::RedisStore(Redis.new)
 
 ### LevelDBStore
 
-RedisStore requires you to have [leveldb shard](https://github.com/greyblake/crystal-leveldb).
+RedisStore requires you to have [levelDB shard](https://github.com/greyblake/crystal-leveldb).
 
 ```crystal
-require "redis"
+require "leveldb"
 require "kiwi/leveldb_store"
 
 leveldb = LevelDB::DB.new("./db")
@@ -103,8 +103,15 @@ make benchmark
 
 ## Running tests
 
+Run specs for all stores:
 ```
 make test
+```
+
+Run spec for a particular store:
+
+```
+crystal spec ./spec/kiwi/file_store_spec.cr
 ```
 
 # Roadmap
