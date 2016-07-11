@@ -21,6 +21,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   kiwi:
     github: greyblake/crystal-kiwi
+    version: ~> 0.1.0
 ```
 
 ## Usage
