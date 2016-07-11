@@ -1,4 +1,4 @@
-# Kiwi <img src="http://publicdomainvectors.org/photos/1301230997.png" alt="Crystal Kiwi - interface of key-value storages" width="64">
+# Crystal Kiwi <img src="http://publicdomainvectors.org/photos/1301230997.png" alt="Crystal Kiwi - interface of key-value storages" width="64">
 
 A simple unified Crystal interface for key-value stores.
 
