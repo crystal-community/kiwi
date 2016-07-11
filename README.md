@@ -1,5 +1,7 @@
 # Crystal Kiwi <img src="http://publicdomainvectors.org/photos/1301230997.png" alt="Crystal Kiwi - interface of key-value storages" width="64">
 
+[![Build Status](https://travis-ci.org/greyblake/crystal-kiwi.svg?branch=master)](https://travis-ci.org/greyblake/crystal-kiwi)
+
 A simple unified Crystal interface for key-value stores.
 
 * [Installation](#installation)
