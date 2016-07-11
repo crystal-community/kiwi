@@ -1,8 +1,11 @@
 language: crystal
 sudo: required
 dist: trusty
+services:
+  - redis-server
+  - memcached
 install:
-  - sudo apt-get install -y libleveldb-dev redis-server memcached
+  - sudo apt-get install -y libleveldb-dev
   - shards install
 script:
   - crystal spec
