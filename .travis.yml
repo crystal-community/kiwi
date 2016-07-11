@@ -5,7 +5,7 @@ services:
   - redis-server
   - memcached
 install:
-  - sudo apt-get install -y libleveldb-dev
+  - sudo apt-get install -y libleveldb-dev redis-server memcached
   - shards install
 script:
   - crystal spec
