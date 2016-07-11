@@ -2,6 +2,17 @@
 
 A simple unified Crystal interface for key-value stores.
 
+* [Installation](#installation)
+* [Usage](#usage)
+  * [MemoryStore](#memorystore)
+  * [FileStore](#filestore)
+  * [RedisStore](#redisstore)
+  * [LevelDBStore](#leveldbstore)
+  * [MemcachedStore](#memcachedstore)
+* [Benchmark](#benchmark)
+* [Tests](#tests)
+* [Contributors](#contributors)
+
 ## Installation
 
 Add this to your application's `shard.yml`:
@@ -81,9 +92,9 @@ require "kiwi/memcached_store"
 store = Kiwi::MemcachedStore.new(Memcached::Client.new)
 ```
 
-## Performance porn
+## Benchmark
 
-The following table shows **operations per second** for every particular store.
+The following table shows **operations per second** for every particular store on my machine.
 
 |                    | set     | get     | get(empty) | delete   |
 | ------------------:| -------:| -------:| ----------:| --------:|
@@ -107,13 +118,13 @@ Environment information:
 
 Results can vary on different systems depending on hardware(CPU, RAM, HDD/SSD) and software(OS, file system, etc).
 
-## Running benchmark
+### Running benchmark
 
 ```
 make benchmark
 ```
 
-## Running tests
+## Tests
 
 Run specs for all stores:
 ```
@@ -125,12 +136,6 @@ Run spec for a particular store:
 ```
 crystal spec ./spec/kiwi/file_store_spec.cr
 ```
-
-# Roadmap
-
-* Write `Why?` section
-  * Cache use case
-  * Easy switch to a different store.
 
 ## Contributors
 
