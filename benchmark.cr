@@ -1,4 +1,8 @@
-require "./src/kiwi"
+require "./src/kiwi/memory_store"
+require "./src/kiwi/file_store"
+require "./src/kiwi/redis_store"
+require "./src/kiwi/leveldb_store"
+require "./src/kiwi/memcached_store"
 
 N = 100_000
 
