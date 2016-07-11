@@ -116,7 +116,6 @@ crystal spec ./spec/kiwi/file_store_spec.cr
 
 # Roadmap
 
-* Support `#[]=`, `#[]` methods
 * Write `Why?` section
   * Cache use case
   * Easy switch to a different store.

@@ -22,6 +22,10 @@ macro behaves_like_store(store_definition)
     store.get("key2").should eq "value2"
     store.get("key3").should eq "value3"
 
+    # []= and [] aliases
+    store["key1"] = "abc"
+    store["key1"].should eq "abc"
+
     # clear
     store.clear.should eq store
     store.get("key1").should eq nil
