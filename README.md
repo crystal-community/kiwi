@@ -1,6 +1,6 @@
-# Crystal Kiwi <img src="http://publicdomainvectors.org/photos/1301230997.png" alt="Crystal Kiwi - interface of key-value storages" width="64">
+# Kiwi
 
-[![Build Status](https://travis-ci.org/greyblake/crystal-kiwi.svg?branch=master)](https://travis-ci.org/greyblake/crystal-kiwi)
+[![Build Status](https://travis-ci.org/crystalium/kiwi.svg?branch=master)](https://travis-ci.org/crystalium/kiwi)
 
 A simple unified Crystal interface for key-value stores.
 
@@ -22,7 +22,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   kiwi:
-    github: greyblake/crystal-kiwi
+    github: crystalium/kiwi
     version: ~> 0.1.0
 ```
 
@@ -75,7 +75,7 @@ store = Kiwi::RedisStore(Redis.new)
 
 ### LevelDBStore
 
-RedisStore requires you to have [levelDB shard](https://github.com/greyblake/crystal-leveldb).
+RedisStore requires you to have [levelDB shard](https://github.com/crystalium/leveldb).
 
 ```crystal
 require "leveldb"
