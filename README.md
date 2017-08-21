@@ -1,6 +1,6 @@
 # Kiwi
 
-[![Build Status](https://travis-ci.org/crystalium/kiwi.svg?branch=master)](https://travis-ci.org/crystalium/kiwi)
+[![Build Status](https://travis-ci.org/crystal-community/kiwi.svg?branch=master)](https://travis-ci.org/crystal-community/kiwi)
 
 A simple unified Crystal interface for key-value stores.
 
@@ -22,7 +22,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   kiwi:
-    github: crystalium/kiwi
+    github: crystal-community/kiwi
     version: ~> 0.1.0
 ```
 
@@ -75,7 +75,7 @@ store = Kiwi::RedisStore(Redis.new)
 
 ### LevelDBStore
 
-RedisStore requires you to have [levelDB shard](https://github.com/crystalium/leveldb).
+RedisStore requires you to have [levelDB shard](https://github.com/crystal-community/leveldb).
 
 ```crystal
 require "leveldb"
