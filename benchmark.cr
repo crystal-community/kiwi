@@ -82,33 +82,31 @@ def print_table(result)
   get_empty_col_size = "get(empty)".size
   delete_col_size = result.values.map { |metrics| metrics["delete"].to_s.size }.max
 
-
   # header
   puts "| " + " " * store_col_size +
-      " | " + "set".ljust(set_col_size) +
-      " | " + "get".ljust(get_col_size) +
-      " | " + "get(empty)".ljust(get_empty_col_size) +
-      " | " + "delete".ljust(delete_col_size) +
-      " |"
+       " | " + "set".ljust(set_col_size) +
+       " | " + "get".ljust(get_col_size) +
+       " | " + "get(empty)".ljust(get_empty_col_size) +
+       " | " + "delete".ljust(delete_col_size) +
+       " |"
 
   puts "| " + "-" * store_col_size +
-      " | " + "-" * set_col_size +
-      " | " + "-" * get_col_size +
-      " | " + "-" * get_empty_col_size +
-      " | " + "-" * delete_col_size +
-      " |"
+       " | " + "-" * set_col_size +
+       " | " + "-" * get_col_size +
+       " | " + "-" * get_empty_col_size +
+       " | " + "-" * delete_col_size +
+       " |"
 
   # rows
   result.each do |store, metrics|
     puts "| " + store.ljust(store_col_size) +
-        " | " + metrics["set"].to_s.rjust(set_col_size) +
-        " | " + metrics["get"].to_s.rjust(get_col_size) +
-        " | " + metrics["get_empty"].to_s.rjust(get_empty_col_size) +
-        " | " + metrics["delete"].to_s.rjust(delete_col_size) +
-        " |"
+         " | " + metrics["set"].to_s.rjust(set_col_size) +
+         " | " + metrics["get"].to_s.rjust(get_col_size) +
+         " | " + metrics["get_empty"].to_s.rjust(get_empty_col_size) +
+         " | " + metrics["delete"].to_s.rjust(delete_col_size) +
+         " |"
   end
 end
-
 
 puts
 puts "Initializing stores..."
