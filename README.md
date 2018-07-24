@@ -59,7 +59,7 @@ store["key"]  # => "new "value"
 ```crystal
 require "kiwi/file_store"
 
-store = Kiwi::FileStore("/tmp/kiwi")
+store = Kiwi::FileStore.new(dir: "/tmp/kiwi_test")
 ```
 
 ### RedisStore
