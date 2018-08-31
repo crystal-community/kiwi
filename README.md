@@ -75,7 +75,7 @@ store = Kiwi::RedisStore(Redis.new)
 
 ### LevelDBStore
 
-RedisStore requires you to have [levelDB shard](https://github.com/crystal-community/leveldb).
+LevelDBStore requires you to have [levelDB shard](https://github.com/crystal-community/leveldb).
 
 ```crystal
 require "leveldb"
