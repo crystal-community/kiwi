@@ -6,22 +6,22 @@ module Kiwi
     def initialize(@leveldb : ::LevelDB::DB)
     end
 
-    def set(key, val)
+    def set(key, val) : String
       @leveldb.put(key, val)
       val
     end
 
-    def get(key)
+    def get(key) : String | Nil
       @leveldb.get(key)
     end
 
-    def delete(key)
+    def delete(key) : String
       val = get(key)
       @leveldb.delete(key)
-      val
+      val || ""
     end
 
-    def clear
+    def clear : Store
       @leveldb.clear
       self
     end
