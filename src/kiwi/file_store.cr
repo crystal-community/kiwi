@@ -9,12 +9,12 @@ module Kiwi
       create_dir
     end
 
-    def get(key)
+    def get(key) : String | Nil
       file = file_for_key(key)
       File.exists?(file) ? File.read(file) : nil
     end
 
-    def set(key, val)
+    def set(key, val) : String
       create_dir unless dir_created?
 
       file = file_for_key(key)
@@ -22,7 +22,7 @@ module Kiwi
       val
     end
 
-    def delete(key)
+    def delete(key) : String
       create_dir unless dir_created?
 
       file = file_for_key(key)
@@ -31,11 +31,11 @@ module Kiwi
         File.delete(file)
         value
       else
-        nil
+        ""
       end
     end
 
-    def clear
+    def clear : Store
       remove_dir
       self
     end

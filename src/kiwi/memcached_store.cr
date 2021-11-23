@@ -6,22 +6,22 @@ module Kiwi
     def initialize(@memcached : Memcached::Client)
     end
 
-    def set(key, val)
+    def set(key, val) : String
       @memcached.set(key, val)
       val
     end
 
-    def get(key)
+    def get(key) : String | Nil
       @memcached.get(key)
     end
 
-    def delete(key)
+    def delete(key) : String
       val = get(key)
       @memcached.delete(key)
-      val
+      val || ""
     end
 
-    def clear
+    def clear : Store
       @memcached.flush
       self
     end

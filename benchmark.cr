@@ -3,17 +3,25 @@ require "./src/kiwi/file_store"
 require "./src/kiwi/redis_store"
 require "./src/kiwi/leveldb_store"
 require "./src/kiwi/memcached_store"
+require "benchmark"
+X = 50000
+N =  5
+LIMITER = Time::Span.new(seconds: 5)
 
-N = 100_000
-
-def benchmark(name)
-  start_time = Time.now
-  yield
-  writing_time = Time.now - start_time
-  speed = (N.to_f / writing_time.to_f)
-  rounded_speed = ((speed / 1000).round * 1000).to_i
-  puts "  #{name}: #{rounded_speed} ops/sec"
-  rounded_speed
+def benchmark(name, &block)
+  r = Time::Span.new
+  i = 0
+  loop do
+    puts "N=%i / %i" % [i, N]
+    r += Benchmark.realtime do
+      X.times do
+        block.call
+      end
+    end
+    i += X
+    break if r >  LIMITER
+  end
+  (i.to_f/r.seconds.to_f).round.to_i
 end
 
 def gen_data
@@ -113,9 +121,10 @@ puts "Initializing stores..."
 stores = Array(Kiwi::Store).new
 
 stores << Kiwi::MemoryStore.new
+stores << Kiwi::MemcachedStore.new(Memcached::Client.new)
+
 stores << Kiwi::LevelDBStore.new(LevelDB::DB.new("/tmp/kiwi_benchmark_leveldb"))
 stores << Kiwi::RedisStore.new(Redis.new)
-stores << Kiwi::MemcachedStore.new(Memcached::Client.new)
 stores << Kiwi::FileStore.new("/tmp/kiwi_benchmark_file")
 
 result = measure(stores)

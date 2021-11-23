@@ -6,22 +6,22 @@ module Kiwi
     def initialize(@redis : Redis)
     end
 
-    def set(key, val)
+    def set(key, val) : String
       @redis.set(key, val)
       val
     end
 
-    def get(key)
+    def get(key) : String | Nil
       @redis.get(key)
     end
 
-    def delete(key)
+    def delete(key) : String
       val = get(key)
       @redis.del(key)
-      val
+      val || ""
     end
 
-    def clear
+    def clear : Store
       @redis.flushdb
       self
     end

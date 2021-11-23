@@ -6,19 +6,19 @@ module Kiwi
       @mem = Hash(String, String).new
     end
 
-    def get(key)
+    def get(key) : String | Nil
       @mem[key]?
     end
 
-    def set(key, val)
+    def set(key, val) : String
       @mem[key] = val
     end
 
-    def delete(key)
-      @mem.delete(key)
+    def delete(key) : String
+      @mem.delete(key) || ""
     end
 
-    def clear
+    def clear : Store
       @mem.clear
       self
     end
