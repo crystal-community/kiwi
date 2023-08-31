@@ -1,0 +1,16 @@
+version: '3'
+services:
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  leveldb:
+    image: ekristen/leveldb
+    ports:
+      - "2012:2012"

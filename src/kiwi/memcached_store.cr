@@ -3,25 +3,31 @@ require "memcached"
 
 module Kiwi
   class MemcachedStore < Store
-    def initialize(@memcached : Memcached::Client)
+    getter expires_in : Time::Span
+
+    def initialize(@memcached : Memcached::Client, @expires_in : Time::Span = 5.minutes)
     end
 
-    def set(key, val)
-      @memcached.set(key, val)
+    def mset(key : String, val : String, expires_in : UInt32 = 0, version : Int64 = 0) : String
+      @memcached.set(key, val, expires_in, version)
       val
     end
 
-    def get(key)
+    def set(key : String, val : String) : String
+      mset(key, val, expires_in.to_i.to_u32, 0.to_i64)
+    end
+
+    def get(key : String) : String?
       @memcached.get(key)
     end
 
-    def delete(key)
-      val = get(key)
-      @memcached.delete(key)
-      val
+    def delete(key : String) : String?
+      get(key).tap do |_|
+        @memcached.delete(key)
+      end
     end
 
-    def clear
+    def clear : Store
       @memcached.flush
       self
     end

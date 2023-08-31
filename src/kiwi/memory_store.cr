@@ -2,23 +2,35 @@ require "./store"
 
 module Kiwi
   class MemoryStore < Store
-    def initialize
-      @mem = Hash(String, String).new
+    getter expires_in : Time::Span
+
+    def initialize(@expires_in : Time::Span = 5.minutes)
+      @mem = Hash(String, TimedValue).new
     end
 
-    def get(key)
-      @mem[key]?
+    def get(key : String) : String?
+      memory = @mem[key]?
+      return nil unless memory
+
+      if memory[:expires_at] < Time.utc
+        delete(key)
+        nil
+      else
+        memory[:value]
+      end
     end
 
-    def set(key, val)
-      @mem[key] = val
+    def set(key : String, val : String) : String
+      memory = TimedValue.new(value: val, expires_at: Time.utc + expires_in)
+      @mem[key] = memory
+      val
     end
 
-    def delete(key)
-      @mem.delete(key)
+    def delete(key : String) : String?
+      @mem.delete(key).try(&.[:value])
     end
 
-    def clear
+    def clear : Store
       @mem.clear
       self
     end

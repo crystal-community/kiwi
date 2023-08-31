@@ -3,6 +3,7 @@ version: 0.1.0
 
 authors:
   - Sergey Potapov <blake131313@gmail.com>
+  - Fabio Akita <fabioakita@gmail.com>
 
 license: MIT
 
@@ -16,3 +17,7 @@ development_dependencies:
   leveldb:
     github: crystal-community/leveldb
     branch: master
+  timecop:
+    github: crystal-community/timecop.cr
+  ameba:
+    github: crystal-ameba/ameba

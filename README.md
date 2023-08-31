@@ -26,6 +26,15 @@ dependencies:
     version: ~> 0.1.0
 ```
 
+Temporarily, if you wan't the newest version from akitaonrails' fork:
+
+```yaml
+dependencies:
+  kiwi:
+    github: akitaonrails/kiwi
+    branch: master
+```
+
 ## Usage
 
 All the stores have the same simple interface defined by
@@ -52,6 +61,11 @@ store.clear
 # Or your can use Hash-like methods:
 store["key"] = "new value"
 store["key"]  # => "new "value"
+
+# fetch with a block:
+store.fetch("key") do
+  "value"
+end
 ```
 
 ### FileStore
@@ -96,17 +110,28 @@ require "kiwi/memcached_store"
 store = Kiwi::MemcachedStore.new(Memcached::Client.new)
 ```
 
+### Expires
+
+Almost all stores, but the FileStore, can receive a "expires_in" argument to set a default expiring time span:
+
+```crystal
+store1 = Kiwi::MemcachedStore.new(Memcached::Client.new, expires_in: 5.minutes)
+store2 = Kiwi::RedisStore.new(Redis::PooledClient.new, expires_in: 1.hour)
+```
+
+This is a cache library, so cached data is supposed to eventually expire without manual intervention.
+
 ## Benchmark
 
 The following table shows **operations per second** for every particular store on my machine.
 
-|                    | set     | get     | get(empty) | delete   |
-| ------------------:| -------:| -------:| ----------:| --------:|
-| **MemoryStore**    | 3056000 | 4166000 |    4074000 | 10473000 |
-| **LevelDBStore**   |  120000 |  193000 |     253000 |    37000 |
-| **RedisStore**     |   41000 |   42000 |      42000 |    21000 |
-| **MemcachedStore** |   38000 |   41000 |      40000 |    21000 |
-| **FileStore**      |   27000 |   66000 |      73000 |     8000 |
+|                    | set     | get     | get(empty) | delete  |
+| ------------------ | ------- | ------- | ---------- | ------- |
+| **MemoryStore**    | 2096000 | 3023000 |    3171000 | 3453000 |
+| **LevelDBStore**   |  690000 |  518000 |     627000 |  360000 |
+| **RedisStore**     |   24000 |   30000 |      25000 |   13000 |
+| **MemcachedStore** |   11000 |   10000 |      11000 |    5000 |
+| **FileStore**      |   80000 |  118000 |     117000 |   90000 |
 
 Data information:
 * Key size: 5-100 bytes.
@@ -132,6 +157,7 @@ make benchmark
 
 Run specs for all stores:
 ```
+# you must have docker-compose installed
 make test
 ```
 
@@ -145,3 +171,4 @@ crystal spec ./spec/kiwi/file_store_spec.cr
 
 - [greyblake](https://github.com/greyblake) Sergey Potapov - creator, maintainer.
 - [mauricioabreu](https://github.com/mauricioabreu) Mauricio de Abreu Antunes - thanks for MemcachedStore.
+- [akitaonrails](https://akitando.com) Fabio Akita - adding type checks and expiration feature

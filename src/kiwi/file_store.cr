@@ -9,12 +9,12 @@ module Kiwi
       create_dir
     end
 
-    def get(key)
+    def get(key : String) : String?
       file = file_for_key(key)
       File.exists?(file) ? File.read(file) : nil
     end
 
-    def set(key, val)
+    def set(key : String, val : String) : String
       create_dir unless dir_created?
 
       file = file_for_key(key)
@@ -22,25 +22,23 @@ module Kiwi
       val
     end
 
-    def delete(key)
+    def delete(key : String) : String?
       create_dir unless dir_created?
 
       file = file_for_key(key)
-      if File.exists?(file)
-        value = File.read(file)
+      return nil unless File.exists?(file)
+
+      File.read(file).tap do |_|
         File.delete(file)
-        value
-      else
-        nil
       end
     end
 
-    def clear
+    def clear : Store
       remove_dir
       self
     end
 
-    private def file_for_key(key)
+    private def file_for_key(key : String)
       hex = Digest::SHA1.hexdigest(key)
       File.join(@dir, hex)
     end
