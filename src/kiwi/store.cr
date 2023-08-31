@@ -8,11 +8,11 @@ module Kiwi
     abstract def clear : Store
 
     def fetch(key : String, &) : String?
-      get(key).tap do |value|
-        if !value && (value = yield)
-          set(key, value)
-        end
+      value = get(key)
+      if !value && (value = yield)
+        set(key, value)
       end
+      value
     end
 
     def []=(*args)

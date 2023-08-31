@@ -28,10 +28,11 @@ macro behaves_like_store(store_definition)
     store["key1"].should eq "abc"
 
     # fetch
-    store.fetch("key9") do
+    value = store.fetch("key9") do
       "value9"
     end
     store["key9"].should eq "value9"
+    value.should eq "value9"
 
     # clear
     store.clear.should eq store
