@@ -1,11 +1,12 @@
 require "./store"
 require "redis"
+require "redis/pooled_client"
 
 module Kiwi
   class RedisStore < Store
     getter expires_in : Time::Span
 
-    def initialize(@redis : Redis, @expires_in : Time::Span = 5.minutes)
+    def initialize(@redis : Redis | Redis::PooledClient, @expires_in : Time::Span = 5.minutes)
     end
 
     def rset(key : String, val : String, expires : UInt32 = 0) : String
