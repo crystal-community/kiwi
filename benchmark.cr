@@ -6,10 +6,10 @@ require "./src/kiwi/memcached_store"
 
 N = 100_000
 
-def benchmark(name)
-  start_time = Time.now
+def benchmark(name, &)
+  start_time = Time.utc
   yield
-  writing_time = Time.now - start_time
+  writing_time = Time.utc - start_time
   speed = (N.to_f / writing_time.to_f)
   rounded_speed = ((speed / 1000).round * 1000).to_i
   puts "  #{name}: #{rounded_speed} ops/sec"
@@ -33,7 +33,6 @@ end
 def measure(stores)
   puts "Genrating data..."
   data = gen_data
-  empty_keys = (0..N).map { |i| "empty-key-#{i}" }
 
   result = Hash(String, Hash(String, Int32)).new
 
@@ -51,19 +50,19 @@ def measure(stores)
     end
 
     store_metrics["get"] = benchmark("get") do
-      data.each do |key, val|
+      data.each do |key, _|
         store.get(key)
       end
     end
 
     store_metrics["get_empty"] = benchmark("get (empty)") do
-      data.each do |key, val|
+      data.each do |key, _|
         store.get(key)
       end
     end
 
     store_metrics["delete"] = benchmark("delete") do
-      data.each do |key, val|
+      data.each do |key, _|
         store.delete(key)
       end
     end
@@ -76,11 +75,11 @@ def measure(stores)
 end
 
 def print_table(result)
-  store_col_size = result.keys.map(&.size).max
-  set_col_size = result.values.map { |metrics| metrics["set"].to_s.size }.max
-  get_col_size = result.values.map { |metrics| metrics["get"].to_s.size }.max
+  store_col_size = result.keys.max_of(&.size)
+  set_col_size = result.values.max_of(&.["set"].to_s.size)
+  get_col_size = result.values.max_of(&.["get"].to_s.size)
   get_empty_col_size = "get(empty)".size
-  delete_col_size = result.values.map { |metrics| metrics["delete"].to_s.size }.max
+  delete_col_size = result.values.max_of(&.["delete"].to_s.size)
 
   # header
   puts "| " + " " * store_col_size +
