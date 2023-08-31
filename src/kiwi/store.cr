@@ -9,8 +9,9 @@ module Kiwi
 
     def fetch(key : String, &) : String?
       value = get(key)
-      if !value && (value = yield)
-        set(key, value)
+      if !value
+        value = yield
+        set(key, value) if value
       end
       value
     end
